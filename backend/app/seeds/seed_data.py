@@ -30,6 +30,7 @@ async def run_seeds():
             admin_user = User(
                 full_name="Hospital Administrator",
                 email="admin@hpms.hospital",
+                phone="9800000001",
                 hashed_password=get_password_hash("admin123"),
                 role=UserRole.ADMIN,
                 is_active=True,
@@ -37,6 +38,7 @@ async def run_seeds():
             pharmacist_user = User(
                 full_name="Chief Pharmacist Sharma",
                 email="pharmacist@hpms.hospital",
+                phone="9800000002",
                 hashed_password=get_password_hash("pharm123"),
                 role=UserRole.PHARMACIST,
                 is_active=True,
@@ -44,6 +46,7 @@ async def run_seeds():
             billing_user = User(
                 full_name="Billing Clerk Rajesh",
                 email="billing@hpms.hospital",
+                phone="9800000003",
                 hashed_password=get_password_hash("bill123"),
                 role=UserRole.BILLING_STAFF,
                 is_active=True,
@@ -51,6 +54,7 @@ async def run_seeds():
             dept_user = User(
                 full_name="Nurse Incharge Priya",
                 email="dept@hpms.hospital",
+                phone="9800000004",
                 hashed_password=get_password_hash("dept123"),
                 role=UserRole.DEPT_STAFF,
                 is_active=True,
@@ -66,7 +70,7 @@ async def run_seeds():
             s1 = Supplier(
                 name="Apex Healthcare Distributors",
                 contact_person="Ramesh Gupta",
-                phone="+91 98765 43210",
+                phone="9876543210",
                 email="orders@apexdistributors.com",
                 address="Plot 44, Industrial Area Phase II, New Delhi",
                 gst_number="07AAAAA0000A1Z5",
@@ -75,7 +79,7 @@ async def run_seeds():
             s2 = Supplier(
                 name="BioMed Pharma Logistics",
                 contact_person="Sunil Verma",
-                phone="+91 98111 22334",
+                phone="9811122334",
                 email="contact@biomedlogistics.in",
                 address="201 Horizon Chambers, Andheri East, Mumbai",
                 gst_number="27BBBBB1111B1Z2",
@@ -84,7 +88,7 @@ async def run_seeds():
             s3 = Supplier(
                 name="CareLife Pharmaceuticals",
                 contact_person="Dr. Anjali Mehta",
-                phone="+91 94000 55667",
+                phone="9400055667",
                 email="supply@carelifepharma.com",
                 address="12 Electronics City, Bengaluru",
                 gst_number="29CCCCC2222C1Z8",
@@ -299,7 +303,7 @@ async def run_seeds():
                 name="Harish Chandra",
                 age=54,
                 gender="Male",
-                phone="+91 98220 11223",
+                phone="9822011223",
                 address="Flat 402, Green Park Apartments, Sector 15",
                 patient_type=PatientType.OPD,
             )
@@ -308,7 +312,7 @@ async def run_seeds():
                 name="Saraswati Devi",
                 age=68,
                 gender="Female",
-                phone="+91 97110 33445",
+                phone="9711033445",
                 address="House 88, Civil Lines",
                 patient_type=PatientType.IPD,
             )
@@ -317,7 +321,7 @@ async def run_seeds():
                 name="Aakash Nair",
                 age=31,
                 gender="Male",
-                phone="+91 95440 66778",
+                phone="9544066778",
                 address="Koramangala 4th Block, Bengaluru",
                 patient_type=PatientType.OPD,
             )

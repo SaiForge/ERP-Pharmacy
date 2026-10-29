@@ -4,6 +4,8 @@ A production-grade, full-stack Hospital Pharmacy Management System built with **
 
 HPMS enforces strict clinical pharmacy operations including **First-Expire-First-Out (FEFO) dispensing**, low-stock/shelf-life thresholds, automated purchase order goods receipt with batch creation, department requisitions, point-of-sale patient billing, and comprehensive audit ledgers.
 
+> 📖 **Comprehensive ERP Project Documentation**: Full 10-chapter academic and technical report available at [`DOCUMENTATION.md`](file:///Users/zayn/Documents/Work/ERP-Pharmacy/DOCUMENTATION.md) (includes DFDs Level 0/1/2, full ERD, Data Dictionary, Test Execution Matrix, and Architecture).
+
 ---
 
 ## 1. System Architecture (3-Layer)

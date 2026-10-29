@@ -46,6 +46,10 @@ export const DepartmentList: React.FC = () => {
       setFormError('All fields are required.');
       return;
     }
+    if (name.trim().length < 2 || location.trim().length < 2 || departmentHead.trim().length < 2) {
+      setFormError('Name, location, and department incharge must each be at least 2 characters.');
+      return;
+    }
     createMutation.mutate({
       name: name.trim(),
       location: location.trim(),

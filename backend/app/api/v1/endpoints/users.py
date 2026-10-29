@@ -73,6 +73,7 @@ async def create_user(
     user = User(
         full_name=user_in.full_name,
         email=user_in.email,
+        phone=user_in.phone,
         hashed_password=get_password_hash(user_in.password),
         role=user_in.role,
         is_active=user_in.is_active,
@@ -105,6 +106,8 @@ async def update_user(
 
     if user_in.full_name is not None:
         user.full_name = user_in.full_name
+    if user_in.phone is not None:
+        user.phone = user_in.phone
     if user_in.role is not None:
         user.role = user_in.role
     if user_in.is_active is not None:

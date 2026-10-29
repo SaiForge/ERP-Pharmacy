@@ -9,13 +9,13 @@ import { Button } from '../../components/ui/Button';
 import { Medicine } from '../../types';
 
 const medicineSchema = z.object({
-  name: z.string().min(1, 'Brand name is required'),
-  generic_name: z.string().min(1, 'Generic name is required'),
-  category: z.string().min(1, 'Category is required'),
-  manufacturer: z.string().min(1, 'Manufacturer is required'),
-  unit: z.string().min(1, 'Unit form is required'),
-  pack_size: z.coerce.number().min(1, 'Pack size must be at least 1'),
-  reorder_level: z.coerce.number().min(0, 'Reorder level cannot be negative'),
+  name: z.string().trim().min(2, 'Brand / Medicine name must be at least 2 characters'),
+  generic_name: z.string().trim().min(2, 'Generic name must be at least 2 characters'),
+  category: z.string().trim().min(2, 'Category must be at least 2 characters'),
+  manufacturer: z.string().trim().min(2, 'Manufacturer must be at least 2 characters'),
+  unit: z.string().trim().min(1, 'Unit form is required'),
+  pack_size: z.coerce.number().min(1, 'Pack size must be at least 1').max(10000, 'Pack size cannot exceed 10,000'),
+  reorder_level: z.coerce.number().min(0, 'Reorder level cannot be negative').max(100000, 'Reorder level cannot exceed 100,000'),
   hsn_code: z.string().optional().nullable(),
   is_active: z.boolean().default(true),
 });

@@ -4,9 +4,9 @@ from pydantic import BaseModel, Field
 
 
 class DepartmentBase(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100)
-    location: str = Field(..., min_length=1, max_length=150)
-    department_head: str = Field(..., min_length=1, max_length=100)
+    name: str = Field(..., min_length=2, max_length=100)
+    location: str = Field(..., min_length=2, max_length=150)
+    department_head: str = Field(..., min_length=2, max_length=100)
     is_active: bool = True
 
 
@@ -15,9 +15,9 @@ class DepartmentCreate(DepartmentBase):
 
 
 class DepartmentUpdate(BaseModel):
-    name: Optional[str] = None
-    location: Optional[str] = None
-    department_head: Optional[str] = None
+    name: Optional[str] = Field(None, min_length=2, max_length=100)
+    location: Optional[str] = Field(None, min_length=2, max_length=150)
+    department_head: Optional[str] = Field(None, min_length=2, max_length=100)
     is_active: Optional[bool] = None
 
 

@@ -149,16 +149,29 @@ export const BillForm: React.FC = () => {
 
   const handleCreatePatientSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newPatientName.trim() || !newPatientPhone.trim()) {
-      setError('Patient name and phone are required.');
+    if (!newPatientUhid.trim() || newPatientUhid.trim().length < 3) {
+      setError('UHID must be at least 3 characters.');
+      return;
+    }
+    if (!newPatientName.trim() || newPatientName.trim().length < 2) {
+      setError('Patient name must be at least 2 characters.');
+      return;
+    }
+    const cleanPhone = newPatientPhone.trim();
+    if (!/^\d{10}$/.test(cleanPhone)) {
+      setError('Patient mobile number must be exactly 10 digits (e.g. 9876543210).');
+      return;
+    }
+    if (isNaN(newPatientAge) || newPatientAge < 0 || newPatientAge > 130) {
+      setError('Patient age must be between 0 and 130.');
       return;
     }
     createPatientMutation.mutate({
-      uhid: newPatientUhid,
+      uhid: newPatientUhid.trim(),
       name: newPatientName.trim(),
       age: Number(newPatientAge),
       gender: newPatientGender,
-      phone: newPatientPhone.trim(),
+      phone: cleanPhone,
       patient_type: newPatientType,
     });
   };
@@ -411,6 +424,7 @@ export const BillForm: React.FC = () => {
           <Input
             label="UHID (Unique Hospital ID)"
             required
+            placeholder="e.g. UHID-2026-0042"
             value={newPatientUhid}
             onChange={(e) => setNewPatientUhid(e.target.value)}
           />
@@ -428,6 +442,8 @@ export const BillForm: React.FC = () => {
               label="Age"
               type="number"
               required
+              min={0}
+              max={130}
               value={newPatientAge}
               onChange={(e) => setNewPatientAge(Number(e.target.value))}
             />
@@ -453,11 +469,15 @@ export const BillForm: React.FC = () => {
           </div>
 
           <Input
-            label="Phone Number"
+            label="Mobile Number (10 Digits)"
             required
-            placeholder="+91 98765 43210"
+            maxLength={10}
+            placeholder="e.g. 9876543210"
             value={newPatientPhone}
-            onChange={(e) => setNewPatientPhone(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+              setNewPatientPhone(val);
+            }}
           />
         </form>
       </Modal>

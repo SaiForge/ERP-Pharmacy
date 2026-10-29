@@ -67,6 +67,7 @@ class InventoryService:
                 )
 
             batch.quantity_available -= requested_qty
+            await db.flush()
             return [{
                 "batch_id": batch.id,
                 "batch_number": batch.batch_number,
@@ -119,6 +120,7 @@ class InventoryService:
                 "expiry_date": batch.expiry_date,
             })
 
+        await db.flush()
         return deductions
 
     @staticmethod

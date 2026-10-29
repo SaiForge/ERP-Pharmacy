@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 class BatchBase(BaseModel):
     medicine_id: int
-    batch_number: str = Field(..., min_length=1, max_length=100)
+    batch_number: str = Field(..., min_length=2, max_length=50)
     supplier_id: Optional[int] = None
     purchase_order_item_id: Optional[int] = None
     quantity_received: int = Field(..., ge=1)
@@ -22,10 +22,10 @@ class BatchCreate(BatchBase):
 
 
 class BatchUpdate(BaseModel):
-    batch_number: Optional[str] = None
-    quantity_available: Optional[int] = None
-    unit_cost_price: Optional[float] = None
-    mrp: Optional[float] = None
+    batch_number: Optional[str] = Field(None, min_length=2, max_length=50)
+    quantity_available: Optional[int] = Field(None, ge=0)
+    unit_cost_price: Optional[float] = Field(None, ge=0.0)
+    mrp: Optional[float] = Field(None, ge=0.0)
     expiry_date: Optional[date] = None
 
 

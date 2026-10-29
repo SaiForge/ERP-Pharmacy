@@ -78,8 +78,14 @@ class BillingService:
         db.add(bill)
         await db.flush()
         await db.commit()
-        await db.refresh(bill)
-        return bill
+        
+        stmt = (
+            select(Bill)
+            .where(Bill.id == bill.id)
+            .options(selectinload(Bill.items), selectinload(Bill.patient))
+        )
+        res = await db.execute(stmt)
+        return res.scalar_one()
 
     @staticmethod
     async def refund_bill(db: AsyncSession, bill_id: int, user_id: int) -> Bill:

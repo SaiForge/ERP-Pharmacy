@@ -8,11 +8,11 @@ import { Button } from '../../components/ui/Button';
 import { Supplier } from '../../types';
 
 const supplierSchema = z.object({
-  name: z.string().min(1, 'Company / Supplier name is required'),
-  contact_person: z.string().min(1, 'Contact person name is required'),
-  phone: z.string().min(1, 'Phone number is required'),
-  email: z.string().email('Invalid email address'),
-  address: z.string().min(1, 'Full address is required'),
+  name: z.string().trim().min(2, 'Company / Supplier name must be at least 2 characters'),
+  contact_person: z.string().trim().min(2, 'Contact person name must be at least 2 characters'),
+  phone: z.string().trim().regex(/^\d{10}$/, 'Mobile / Phone number must be exactly 10 digits (e.g. 9876543210)'),
+  email: z.string().trim().email('Invalid email address'),
+  address: z.string().trim().min(3, 'Full address must be at least 3 characters'),
   gst_number: z.string().optional().nullable(),
   is_active: z.boolean().default(true),
 });
@@ -111,9 +111,10 @@ export const SupplierFormModal: React.FC<SupplierFormModalProps> = ({
             error={errors.contact_person?.message}
           />
           <Input
-            label="Phone Number"
+            label="Phone Number (10 Digits)"
             required
-            placeholder="+91 98765 43210"
+            maxLength={10}
+            placeholder="e.g. 9876543210"
             {...register('phone')}
             error={errors.phone?.message}
           />

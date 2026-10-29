@@ -1,26 +1,28 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from app.models.user import UserRole
 
 
 class UserBase(BaseModel):
-    full_name: str
+    full_name: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
+    phone: Optional[str] = Field(None, pattern=r"^\d{10}$", description="10-digit mobile number")
     role: UserRole = UserRole.PHARMACIST
     is_active: bool = True
 
 
 class UserCreate(UserBase):
-    password: str
+    password: str = Field(..., min_length=6, max_length=100, description="Minimum 6 characters")
 
 
 class UserUpdate(BaseModel):
-    full_name: Optional[str] = None
+    full_name: Optional[str] = Field(None, min_length=2, max_length=100)
     email: Optional[EmailStr] = None
+    phone: Optional[str] = Field(None, pattern=r"^\d{10}$", description="10-digit mobile number")
     role: Optional[UserRole] = None
     is_active: Optional[bool] = None
-    password: Optional[str] = None
+    password: Optional[str] = Field(None, min_length=6, max_length=100)
 
 
 class UserOut(UserBase):
@@ -39,4 +41,4 @@ class Token(BaseModel):
 
 class LoginRequest(BaseModel):
     email: EmailStr
-    password: str
+    password: str = Field(..., min_length=1)

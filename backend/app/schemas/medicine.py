@@ -4,14 +4,14 @@ from pydantic import BaseModel, Field
 
 
 class MedicineBase(BaseModel):
-    name: str = Field(..., min_length=1, max_length=150)
-    generic_name: str = Field(..., min_length=1, max_length=150)
-    category: str = Field(..., min_length=1, max_length=100)
-    manufacturer: str = Field(..., min_length=1, max_length=150)
+    name: str = Field(..., min_length=2, max_length=150)
+    generic_name: str = Field(..., min_length=2, max_length=150)
+    category: str = Field(..., min_length=2, max_length=100)
+    manufacturer: str = Field(..., min_length=2, max_length=150)
     unit: str = Field(..., min_length=1, max_length=50)
-    pack_size: int = Field(default=1, ge=1)
-    reorder_level: int = Field(default=10, ge=0)
-    hsn_code: Optional[str] = None
+    pack_size: int = Field(default=1, ge=1, le=10000)
+    reorder_level: int = Field(default=10, ge=0, le=100000)
+    hsn_code: Optional[str] = Field(None, max_length=20)
     is_active: bool = True
 
 
@@ -20,14 +20,14 @@ class MedicineCreate(MedicineBase):
 
 
 class MedicineUpdate(BaseModel):
-    name: Optional[str] = None
-    generic_name: Optional[str] = None
-    category: Optional[str] = None
-    manufacturer: Optional[str] = None
-    unit: Optional[str] = None
-    pack_size: Optional[int] = None
-    reorder_level: Optional[int] = None
-    hsn_code: Optional[str] = None
+    name: Optional[str] = Field(None, min_length=2, max_length=150)
+    generic_name: Optional[str] = Field(None, min_length=2, max_length=150)
+    category: Optional[str] = Field(None, min_length=2, max_length=100)
+    manufacturer: Optional[str] = Field(None, min_length=2, max_length=150)
+    unit: Optional[str] = Field(None, min_length=1, max_length=50)
+    pack_size: Optional[int] = Field(None, ge=1, le=10000)
+    reorder_level: Optional[int] = Field(None, ge=0, le=100000)
+    hsn_code: Optional[str] = Field(None, max_length=20)
     is_active: Optional[bool] = None
 
 

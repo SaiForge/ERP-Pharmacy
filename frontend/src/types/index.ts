@@ -4,6 +4,7 @@ export interface User {
   id: number;
   full_name: string;
   email: string;
+  phone?: string | null;
   role: UserRole;
   is_active: boolean;
   created_at: string;
@@ -222,7 +223,49 @@ export interface StockTrendPoint {
   stock_out: number;
 }
 
+export interface BillSummaryItem {
+  id: number;
+  bill_number: string;
+  patient_name: string;
+  patient_phone?: string | null;
+  bill_date: string;
+  net_amount: number;
+  payment_mode: string;
+  payment_status: string;
+}
+
+export interface ExpiringBatchSummary {
+  id: number;
+  batch_number: string;
+  medicine_name: string;
+  expiry_date: string;
+  days_to_expiry: number;
+  quantity_available: number;
+  mrp: number;
+}
+
+export interface LowStockMedicineSummary {
+  id: number;
+  name: string;
+  generic_name: string;
+  category: string;
+  current_stock: number;
+  reorder_level: number;
+}
+
+export interface DeptRequisitionSummary {
+  id: number;
+  issue_number: string;
+  department_name: string;
+  requested_by: string;
+  status: string;
+  items_count: number;
+  issue_date: string;
+}
+
 export interface DashboardKPIs {
+  role?: string;
+  user_name?: string;
   total_active_medicines: number;
   total_stock_value: number;
   low_stock_count: number;
@@ -230,9 +273,20 @@ export interface DashboardKPIs {
   expired_count: number;
   today_billing_total: number;
   today_bills_count: number;
+  today_cash_total?: number;
+  today_upi_total?: number;
+  today_card_total?: number;
+  today_insurance_total?: number;
   pending_purchase_orders: number;
+  pending_department_issues?: number;
+  approved_department_issues?: number;
+  issued_department_issues?: number;
   top_departments_consumption: DeptConsumptionData[];
   stock_trends: StockTrendPoint[];
+  recent_bills?: BillSummaryItem[];
+  expiring_batches_list?: ExpiringBatchSummary[];
+  low_stock_medicines?: LowStockMedicineSummary[];
+  recent_requisitions?: DeptRequisitionSummary[];
 }
 
 export interface StockReportItem {
